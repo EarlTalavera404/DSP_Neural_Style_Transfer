@@ -23,9 +23,11 @@ User logins
 Base User
 <br>
 username = user@email.com
+<br>
 password = Password123!
 <br>
 Manager 
 <br>
 username = Manager@email.com
+<br>
 password = RitzCracker321!
