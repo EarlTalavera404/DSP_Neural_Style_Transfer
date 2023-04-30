@@ -24,5 +24,7 @@ username = user@email.com
 password = Password123!
 
 Manager 
+<br>
 username = Manager@email.com
+<br>
 password = RitzCracker321!
