@@ -1,0 +1,324 @@
+{% extends 'neural_art_transfer/base.html' %}
+
+{% block title %}
+<title>View Images</title>
+{% endblock title %}
+
+{% block content %}
+<head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
+
+<div class="headline">
+  <p>You can view your uploaded content and style images here and delete them off the website!
+    <br>
+  </p> 
+</div>
+
+<body> 
+<div class = "main_body"> 
+  <div class="content"> 
+    <div class ="title">
+      <span>VIEW SAVED IMAGES </span>
+    </div>
+
+
+
+    <div class = 'control-container'>
+      
+      <div class="controller-child">
+          <select name="tableViewer" id="tableViewer" onclick="myFunction()">
+              <option value="content">View Stored Content Images</option>
+              <option value="style">View Stored Style Images</option>
+              
+          </select>
+        
+      </div>
+
+      <script>
+          function myFunction() {
+              var viewer = document.getElementById("tableViewer");
+              var contentTableView = document.getElementById("content-table");
+              var styleTableView = document.getElementById("style-table");
+    
+              if (viewer.value == "content"){
+                contentTableView.style.display = "block";
+              } else {
+                contentTableView.style.display = "none";
+              }
+              if (viewer.value == "style"){
+                styleTableView.style.display = "block";
+              } else {
+                styleTableView.style.display = "none";
+              }
+          
+          }
+      </script>
+    </div>
+
+
+
+    <div class = 'table-container'>
+      
+      <div class = 'content-table' id="content-table">
+        {%if images_content_objects %}
+          <table>
+              <tr>
+                  <th>Image</th>
+                  <th>Delete</th>
+                
+              </tr>   
+              {% for image in images_content_objects %}
+              <tr>
+                  <td><img src={{image.image.url}} width=300px height=300px style="object-fit: cover" ></td>
+                  <td><input value="Delete" onclick="window.location.href='delete_content_image/{{image.image_id}}'"  readonly></td>
+                  
+              </tr>
+              {% endfor %}
+          </table>
+      </div>
+        {%else %}
+        <h3>You have no saved content images</h3>
+        {%endif %}
+
+        
+      <div class = 'style-table' id="style-table" style="display: none;"> 
+        {%if images_style_objects %}
+          <table>
+              <tr>
+                <th>Image</th>
+                <th>Delete</th>
+              </tr>   
+              {% for image in images_style_objects %}
+              <tr>
+                  <td><img src={{image.image_style.url}} width=300px height=300px style="object-fit: cover"></td>
+                  <td><input value="Delete" onclick="window.location.href='delete_style_image/{{image.image_id}}'" readonly></td>
+              </tr>
+              {% endfor %}
+          </table>
+        {%else %}
+          <h3>You have no saved style images</h3>
+        {%endif %}
+      </div>
+      
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%endblock%}
+
+
+
+
+
+{% block style %}
+<style>
+
+
+control-container {
+        background: rgb(221, 219, 219);
+        
+    }
+.controller-child{
+  padding-top: 50px;
+  text-align: center;
+}
+#tableViewer{
+  border-color: gold;
+  border-radius:5px;
+}
+
+            .control-container h1{
+                color: #000000;
+                font-size: 20px;
+            }
+            .control-container select{
+                color: black;
+                background-color: gold;
+                text-align: center;
+                padding: 8px 5px 8px 5px;
+                cursor: pointer;
+                margin-top: 30px;
+               
+            }
+            .control-container input{
+                color: black;
+                background-color: gold;
+                text-align: center;
+                padding: 10px 10px 10px 10px;
+                cursor: pointer;
+              
+            }
+
+    .table-container {
+        padding-block: 30px;
+        border-radius: 2%;
+
+    }
+            .table-container input{
+                padding: 4px 0 4px 0;
+                background-color:gold;
+                font-size: 13px;
+                border-radius: 10px;
+                color: black;
+                border: none;
+                cursor: pointer;
+                text-align: center;
+                width: 100px;
+            }
+
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                /* width: 50%; */
+                margin: auto;
+            }
+
+            td{
+                border: 1px solid #dddddd;
+                text-align: center;
+                font-size: 13px;
+                padding:40px;
+             
+                
+            }
+
+             th {
+                border: 1px solid #dddddd;
+                text-align: center;
+                padding: 8px;
+                font-size: 13px;
+                background-color: rgb(240, 240, 240);
+            }
+           
+
+/* 
+  .maincenter{
+      text-align: center;
+      width: 350px;
+      margin:auto;
+
+  } */
+
+  h3{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 40px;
+  text-align: center;
+      }
+    
+    input[type = "submit"]:hover {
+    color: gold;
+    
+    }
+
+  .span{
+    margin-top: 100px;
+  }
+
+  input[type = "text"]:focus {
+    outline: none;
+    border-color: gold;
+    box-shadow: 0 0 5px gold;
+   
+  }
+
+  input[type = "email"]:focus {
+    outline: none;
+    border-color: gold;
+    box-shadow: 0 0 5px gold;
+   
+  }
+
+  input[type = "password"]:focus {
+    outline: none;
+    border-color: gold;
+    box-shadow: 0 0 5px gold;
+   
+  }
+
+  
+  a:hover{
+    color: gold;
+  
+  }
+
+
+  .headline {
+  margin-bottom: 50px;
+  /* margin-top: 50px; */
+  font-family: 'Bebas Neue', cursive;
+  font-size: 20px;
+  background-color: gold;
+  box-shadow:0 0 15px lightgray;
+  text-align: center;
+}
+
+
+
+.title {
+  text-align: center;
+
+  
+  
+}
+
+span {
+  margin-top: 20px;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 3.5em;
+  position: absolute;
+  /* top: 50%;
+  left: 50%; */
+  transform: translate(-50%,-50%);
+  background-image: linear-gradient(gold, gold);
+  background-size: 100% 10px;
+  background-repeat: no-repeat;
+  background-position: 100% 0%;
+  transition: background-size .7s, background-position .5s ease-in-out;
+  
+	}
+
+	span:hover {
+  background-size: 100% 100%;
+  background-position: 0% 100%;
+  transition: background-position .7s, background-size .5s ease-in-out;
+	}
+
+.main_body{
+  text-align: center;
+  position: relative;
+  min-height: 100vh;
+}
+
+.content{
+  padding-bottom: 100px; 
+}
+
+
+</style>
+{% endblock style %}

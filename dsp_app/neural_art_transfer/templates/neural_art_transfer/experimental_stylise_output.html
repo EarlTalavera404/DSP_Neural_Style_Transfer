@@ -1,0 +1,276 @@
+{% extends 'neural_art_transfer/base.html' %}
+{% load static %}
+{% load usertypes%}
+
+{% block title %}
+<title>Experimental Image Output</title>
+{% endblock title %}
+
+
+{% block content %}
+<div class="headline">
+    <p> Your image has be synthesised, please look through the outputs of the the different preprocessing algorithms and choose your most preffered!
+      <br>
+    </p> 
+</div>
+
+<body> 
+  
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+        <div class='main_content'>
+            <div class="algorithm">
+                <div class="main_content_child" >
+                    <label> Fast Neural Transfer Original </label>
+                
+                    <img src="{% static 'neural_art_transfer/generated_images/' %}{{original_image_name}}" width = "350" height = "500" alt="Fast Style Transfer Original">
+                    <div class="time_measured">
+                        <h class="time_elapsed_title">Total time elapsed :</h1>
+                            <p class="time_elapsed">{{time_elapsed}}s</p>
+                    </div>
+                    <label class="switch">
+                        <input type="radio" name="algorithm_choice" value="original">
+                        <span class="slider round"></span>
+                    </label>
+
+                </div>
+
+                <div class="main_content_child" >
+                    <label> Histogram Equaliser</label>
+                
+                    <img src="{% static 'neural_art_transfer/histogram_neural_images/' %}{{histo_image_name}}" width = "350" height = "500" alt="Fast Style Transfer Histogram ">
+                    <div class="time_measured">
+                        <h class="time_elapsed_title">Time elapsed :</h1>
+                            <p class="time_elapsed">{{histo_time_elapsed}}s</p>
+                    </div>
+                    <label class="switch">
+                        <input type="radio" name="algorithm_choice" value="histogram_equalised">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div class="main_content_child" >
+                    <label> Colour normaliser</label>
+                 
+                    <img src="{% static 'neural_art_transfer/colour_normalised_neural_images/' %}{{normalised_image_name}}" width = "350" height = "500" alt="Fast Style Transfer Colour Normalised">
+                    <div class="time_measured">
+                        <h class="time_elapsed_title">Time elapsed :</h1>
+                            <p class="time_elapsed">{{normalised_time_elapsed}}s</p>
+                    </div>
+                    <label class="switch">
+                        <input type="radio" name="algorithm_choice" value="colour_normalised">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                
+                <div class="main_content_child" >
+                    <label> Combined </label>
+                  
+                    <img src="{% static 'neural_art_transfer/combined_neural_images/' %}{{combined_image_name}}"width = "350" height = "500" alt="Fast Style Transfer Combined">
+                    <div class="time_measured">
+                        <h class="time_elapsed_title">Time elapsed :</h1>
+                            <p class="time_elapsed">{{combined_time_elapsed}}s</p>
+                    </div>
+
+                    <label class="switch">
+                        <input type="radio" name="algorithm_choice" value="combined">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+             
+
+             
+                
+                
+            </div>
+
+            
+            <input class = "submit_button" type = "submit">
+
+           
+
+        </div>
+
+
+    </form> 
+
+        
+
+
+    
+</body>
+
+{% endblock  %}
+
+
+{% block style %}
+<style>
+
+.headline {
+  margin-bottom: 50px;
+  /* margin-top: 50px; */
+  font-family: 'Bebas Neue', cursive;
+  font-size: 20px;
+  background-color: gold;
+  box-shadow:0 0 15px lightgray;
+  text-align: center;
+}
+   
+    body {
+    font-family: 'Source Code Pro', sans-serif;
+    }
+    .wrap {
+    padding: 10% 20%;
+    }
+    h2 {
+    margin-top: 3em;
+    color: grey;
+    
+    
+    }
+    h3{
+        text-align: center;
+    }
+
+    .main_content{
+        text-align: center;
+
+    } 
+    .algorithm{
+        grid-template-columns: 1fr 1fr 1fr 1fr; 
+        display: grid;
+        text-align: center;
+        
+
+    }
+
+    .main_content_child{
+        height:600px;
+        padding-left: 75px;
+        
+      
+    }
+
+    .main_content_child label{
+        font-weight: 700;
+        padding-right: 60px; 
+    }
+
+    img{
+        max-width: 100%;
+        max-height: 100%;
+        display: block; /* remove extra space below image */
+    }
+
+.submit_button{
+    text-align: center;
+    background-color: #484848; 
+    border-color: #484848;
+    color: white;
+    border-radius: 12px;
+    width:200px;
+    margin-top: 100px;
+
+}
+
+
+    
+    /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+
+  
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: gold;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px gold;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+    
+
+    .time_elapsed{
+        text-align: center;
+        font-weight: lighter;
+        padding-top:20px;
+        font-size: 30px;
+       
+    } 
+
+
+.time_elapsed_title{
+    font-size: 18px;
+    font-weight: bold;
+    
+} 
+
+
+.time_measured{
+    padding-right: 30px;
+}
+
+    
+
+input[type = "submit"]:hover {
+    color: gold;
+    
+    }
+
+ 
+</style>
+{% endblock style %}

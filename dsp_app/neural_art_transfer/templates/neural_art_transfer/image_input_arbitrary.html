@@ -1,0 +1,337 @@
+{% extends 'neural_art_transfer/base.html' %}
+{% load static %}
+{% load usertypes%}
+{%load widget_tweaks%}
+{% block title %}
+<title>Image Input Arbitrary</title>
+{% endblock title %}
+
+ <!-- Bootstrap file upload button <a href="http://fwpolice.com">the FWPolice</a>. -->
+
+{% block content %}
+<body> 
+
+<div class="headline">
+    <p> Here you can input your own content and style image! , the more high quality the image is the better, please try to insert an image of around 800px!
+      <br>
+    </p> 
+</div>
+
+
+<div class ="title">
+  <span> Arbitrary Style Transfer </span>
+</div>
+
+
+
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="main_content">
+
+        <div class="image_upload_container_1">
+                <img id="poster" src="{% static 'neural_art_transfer/website_images/content_image_poster.png' %}" width=500px height=300px >
+                <div class="label_container">
+                    <label class="custom-file-upload">
+                      Choose File
+                        {% render_field image_form.image|attr:"type:file" id="content_preview" name="image1"%}
+                    </label>
+                    <div class="error_message">{{image_form.errors|striptags }}</div>
+                </div>
+        </div>
+
+        
+
+        <script>
+            content_preview.onchange = e => {
+                const [file] = content_preview.files
+                if (file) {
+                    poster.src = URL.createObjectURL(file)
+                }
+            }
+            
+        </script>
+
+      <div class="image_upload_container_2">
+        <img id="poster_2" src="{% static 'neural_art_transfer/website_images/style_image_poster.png' %}" width=500px height=300px  >
+        <div class="label_container">
+            <label class="custom-file-upload">
+              Choose File
+                {% render_field style_image_form.image_style|attr:"type:file" id="style_preview" name="image_style"%}
+            </label>
+            <div class="error_message">{{style_image_form.errors|striptags}}</div>
+        </div>
+      </div>
+
+      <script>
+        style_preview.onchange = e => {
+            const [file] = style_preview.files
+            if (file) {
+                poster_2.src = URL.createObjectURL(file)
+            }
+        }
+      </script>
+
+  
+    
+  </div>
+  
+
+  <div class="Button_generate">
+    <button type = "submit" class="form_submit">Generate</button>
+  </div>
+
+  </form>
+
+    
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+ 
+
+</body>
+
+{% endblock  %}
+
+
+{% block style %}
+<style>
+    h1{
+        text-align: center;
+      
+
+    }
+    .main_content{
+        grid-template-columns: 1fr 1fr ;
+        display: grid;
+        text-align: center;
+        padding-top: 200px;
+       
+    }
+
+    .main_content_child{
+        text-align: center;
+    }
+
+    /* .main_content_child label{
+        font-weight: 700;
+    } */
+
+    .upload_container{
+        height:500px;
+        text-align: center;
+    
+    }
+
+  
+    
+
+
+
+    .image_upload_container_1 {
+        text-align: center;
+        display: block;
+        padding-left: 400px;
+        
+    }
+
+    .image_upload_container_2 {
+        text-align: center;
+        display: block;
+        padding-right: 400px;
+        
+    }
+
+    .custom-file-upload {
+        margin-top: 10px;
+        padding: 8px 12px 8px 12px;
+        font-size: 13px;
+        border-radius: 10px;
+        color: #ffffff;
+        background-color: #484848;
+        border-color: #484848;
+        cursor: pointer;
+        align-items: center;
+        width:200px;
+        
+        }
+
+
+        .custom-file-upload:hover {
+        color: gold;
+        }
+
+ 
+    .label_container{
+        text-align: center;
+      
+    }
+
+    #content_preview {
+        display: none;
+        
+    }
+
+    
+    #style_preview {
+        display: none;
+        
+    }
+
+    .Button_generate{
+      text-align: center;
+    }
+
+    /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: gold;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px gold;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+    
+
+#poster{
+  box-shadow:0 0 15px lightgray;
+}
+
+#poster_2{
+  box-shadow:0 0 15px lightgray;
+}
+  
+
+
+.headline {
+  margin-bottom: 50px;
+  /* margin-top: 50px; */
+  font-family: 'Bebas Neue', cursive;
+  font-size: 20px;
+  background-color: gold;
+  box-shadow:0 0 15px lightgray;
+  text-align: center;
+}
+
+
+.error_message{
+  color:red;
+}
+
+.form_submit{
+  padding: 8px 12px 8px 12px;
+  font-size: 13px;
+  border-radius: 10px;
+  color: #ffffff;
+  background-color: #484848;
+  border-color: #484848;
+  cursor: pointer;
+  text-align: center;
+  width:150px;
+ 
+        
+}
+.form_submit:hover{
+ color:gold;
+ 
+        
+}
+
+#poster{
+  object-fit: cover
+}
+
+#poster_2{
+  object-fit: cover
+}
+
+
+.title {
+  text-align: center;
+ 
+  
+  
+}
+
+span {
+  margin-top: 30px;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 3.5em;
+  position: absolute;
+
+  transform: translate(-50%,-50%);
+  background-image: linear-gradient(gold, gold);
+  background-size: 100% 10px;
+  background-repeat: no-repeat;
+  background-position: 100% 0%;
+  transition: background-size .7s, background-position .5s ease-in-out;
+	}
+
+	span:hover {
+  background-size: 100% 100%;
+  background-position: 0% 100%;
+  transition: background-position .7s, background-size .5s ease-in-out;
+	}
+  
+    
+</style>
+
+{% endblock style %}

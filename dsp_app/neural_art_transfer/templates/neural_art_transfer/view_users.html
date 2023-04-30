@@ -1,0 +1,170 @@
+{% extends 'neural_art_transfer/base.html' %}
+
+{% block title %}
+<title>View Users</title>
+{% endblock title %}
+
+{% block content %}
+<head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
+
+<div class="headline">
+  <p>Manager, you can view all the users and delete them!
+    <br>
+  </p> 
+</div>
+
+<div class ="title">
+  <span>VIEW ALL USERS </span>
+</div>
+
+<br>
+
+
+<div class = 'table-container'>
+  <div class = 'content-table' id="content-table">
+    {%if users %}
+      <table>
+          <tr>
+              <th>User ID</th>
+              <th>First Name</th>
+              <th>Surname</th>
+              <th>Email</th>
+              <th>Date Joined</th>
+              <th>Delete</th>
+             
+          </tr>   
+          {% for user in users %}
+          <tr>
+              <td>{{user.id}}</td>
+              <td>{{user.first_name}}</td>
+              <td>{{user.last_name}}</td>
+              <td>{{user.username}}</td>
+              <td>{{user.date_joined}}</td>
+              <td><input class = "delete_button" value="Delete" onclick="window.location.href='delete_user/{{user.id}}'"  readonly></td>
+              
+          </tr>
+          {% endfor %}
+      </table>
+      {%else %}
+      <h3>There are no regular users </h3>
+      {%endif %}
+  </div>
+
+
+</div>
+
+
+
+{%endblock%}
+
+
+
+
+
+{% block style %}
+<style>
+
+
+
+
+
+    .table-container {
+    
+        padding-block: 30px;
+        border-radius: 2%;
+
+    }
+            .table-container input{
+                padding: 4px 0 4px 0;
+                background-color:gold;
+                font-size: 13px;
+                border-radius: 10px;
+                color: black;
+                border: none;
+                cursor: pointer;
+                text-align: center;
+                width: 100px;
+            }
+
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 50%;
+                margin: auto;
+            }
+
+            td{
+                border: 1px solid #dddddd;
+                text-align: center;
+                padding: 8px;
+                font-size: 13px;
+                
+            }
+
+             th {
+                border: 1px solid #dddddd;
+                text-align: center;
+                padding: 8px;
+                font-size: 13px;
+                background-color: rgb(240, 240, 240);
+            }
+        
+            .delete_button:hover{
+              color: red;
+            }
+
+
+  h3{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 40px;
+      }
+    
+    
+
+  .span{
+    margin-top: 100px;
+  }
+
+
+  
+  a:hover{
+    color: gold;
+  
+  }
+
+  span {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 3em;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  background-image: linear-gradient(gold, gold);
+  background-size: 100% 10px;
+  background-repeat: no-repeat;
+  background-position: 100% 0%;
+   transition: background-size .7s, background-position .5s ease-in-out;
+	}
+
+	span:hover {
+  background-size: 100% 100%;
+  background-position: 0% 100%;
+  transition: background-position .7s, background-size .5s ease-in-out;
+	}
+
+  .headline {
+  margin-bottom: 50px;
+
+  font-family: 'Bebas Neue', cursive;
+  font-size: 20px;
+  background-color: gold;
+  box-shadow:0 0 15px lightgray;
+  text-align: center;
+}
+.title{
+  text-align: center;
+}
+h3{
+  text-align: center;
+}
+
+</style>
+{% endblock style %}

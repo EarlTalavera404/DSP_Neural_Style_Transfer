@@ -1,0 +1,186 @@
+{% load static %}
+{% load usertypes%}
+
+{% block title %}
+<title>DSP Base</title>
+{% endblock title %}
+{%load widget_tweaks%}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href='https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap' rel="stylesheet">
+</head>
+	<!--- Navbar --->
+	<nav class="navbar navbar-expand-lg">
+		<div class="container">
+			<!-- <a class="navbar-brand text-white" href="#"><i class="fa fa-graduation-cap fa-lg mr-2"></i>Neural Style Transfer</a> -->
+			<a class="navbar-brand text-white" href="/">
+				<img src="{% static 'neural_art_transfer/website_images/DSP_Logo.png'%}" width="60" height="60" alt="Logo">
+				Neural Style Transfer
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nvbCollapse" aria-controls="nvbCollapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="nvbCollapse">
+				<ul class="navbar-nav ml-auto">
+					{% if request.user.is_anonymous %} 
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/"><i class="fa fa-home fa-fw mr-1"></i>Home</a>
+					</li>
+					<!-- <li class="nav-item pl-1">
+						<a class="nav-link" href="#"><i class="fa fa-th-list fa-fw mr-1"></i>About</a>
+					</li> -->
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/login"><i class="fa fa-info-circle fa-fw mr-1"></i>Login</a>
+					</li>
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/register" ><i class="fa fa-phone fa-fw fa-rotate-180 mr-1"></i>Register</a>
+					</li>
+
+					{% elif request.user|has_group:"Base_User" %}
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/"><i class="fa fa-home fa-fw mr-1"></i>Home</a>
+					</li>
+ 
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/image_input"><i class="fa fa-th-list fa-fw mr-1"></i>Fast Stylize</a>
+					</li>
+
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/image_input_arbitrary"><i class="fa fa-th-list fa-fw mr-1"></i>Arbitrary Fast Stylize</a>
+					</li>
+
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/image_input_experiment"><i class="fa fa-th-list fa-fw mr-1"></i>Experimental Stylize</a>
+					</li>
+
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/display_preference"><i class="fa fa-info-circle fa-fw mr-1"></i>Preferences</a>
+					</li>
+
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/view_images"><i class="fa fa-info-circle fa-fw mr-1"></i>View Images</a>
+					</li>
+
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/logout"><i class="fa fa-info-circle fa-fw mr-1"></i>Logout</a>
+					</li>
+
+					{% elif request.user|has_group:"Manager" %}
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/"><i class="fa fa-home fa-fw mr-1"></i>Home</a>
+					</li>
+
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/view_users"><i class="fa fa-info-circle fa-fw mr-1"></i>View Users</a>
+					</li>
+
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/display_preference"><i class="fa fa-info-circle fa-fw mr-1"></i>Preferences</a>
+					</li>
+
+					<li class="nav-item pl-1">
+						<a class="nav-link" href="/logout"><i class="fa fa-info-circle fa-fw mr-1"></i>Logout</a>
+					</li>
+					
+
+				
+
+					
+
+
+					
+					{%endif%}
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!--# Navbar #-->
+	</header>
+
+{% block content %}
+{% endblock content %}
+
+<!--- Footer --->
+
+<footer class = "sticky-footer">
+	<div class="jumbotron jumbotron-fluid bg-secondary p-4 mt-5 mb-0">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 cizgi">
+					<div class="card bg-secondary border-0">
+						<div class="card-body text-light text-center">
+							<h5 class="card-title text-white display-4" style="font-size:30px ">Earl Talavera</h5>
+						<p class="d-inline lead">Earl Talavera © 2023<br>
+						<a href="" class="text-light d-block lead">Digital Systems Project</a>
+						</p>
+
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 cizgi">
+					<div class="card bg-secondary border-0">
+						<div class="card-body text-center">
+							<h5 class="card-title text-white display-4" style="font-size:30px">Contacts</h5>
+							<a class="text-light d-block lead" style="margin-left: -20px" href=""><i class="fa fa-phone mr-2"></i>+07842304403</a>
+							<a class="text-light d-block lead" href=""><i class="fa fa-envelope mr-2"></i>earl2.talavera@live.uwe.ac.uk</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+					<div class="card bg-secondary border-0">
+						<div class="card-body text-center">
+						<h5 class="card-title text-white display-4" style="font-size:30px">Social Media</h5>
+            <a class="text-light d-block lead" style="margin-left: -20px" href="https:linkedin.com/in/earl-talavera-579b63267"><i class="fa fa-phone mr-2" ></i>LinkedIn: Earl Talavera </a>
+							
+			<a class="text-light d-block lead" style="margin-left: -20px" href="https://github.com/EarlTalavera404"><i class="fa fa-phone mr-2" ></i>Github: EarlTalavera404 </a>
+			
+			<a class="text-light d-block lead" style="margin-left: -20px" href="https://gitlab.uwe.ac.uk/e2-talavera"><i class="fa fa-phone mr-2"></i>Gitlab: @e2-talavera </a>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</footer>
+<!--# Footer #-->
+{{ redirect_to_login_immediately }} <!-- When user session expires redirect them to the login page-->
+
+
+<style>
+	.navbar { background-color: #484848; }
+  .navbar .navbar-nav .nav-link { color: #fff; }
+  .navbar .navbar-nav .nav-link:hover { color: gold; }
+  .navbar .navbar-nav .active > .nav-link { color: gold; }
+  
+  footer a.text-light:hover { color: #fed136!important; text-decoration: none; }
+  footer .cizgi { border-right: 1px solid #535e67; }
+  @media (max-width: 992px) { footer .cizgi { border-right: none; } }
+
+
+  .error_message{
+  color:red;
+  }
+
+  .sticky-footer {
+    position: sticky;
+    top:100%;
+    display:grid;
+    text-align:center;
+}
+
+
+  </style>
+
+</html>
+
+{% block style %}
+{% endblock style %}
+
+
+

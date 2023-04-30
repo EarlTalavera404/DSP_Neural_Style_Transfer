@@ -1,0 +1,108 @@
+{% extends 'neural_art_transfer/base.html' %}
+{% load static %}
+{% load usertypes%}
+
+{% block title %}
+<title>Image Output</title>
+{% endblock title %}
+
+
+{% block content %}
+<body> 
+    <div class="headline">
+        <p> Your image has be synthesised!
+          <br>
+        </p> 
+    </div>
+    <div class ="image_container">
+      <img src="{% static 'neural_art_transfer/generated_images/' %}{{image_name}}">
+    </div>
+    
+    <br>
+    <div> <p class="time"> Time Elapsed : {{time_elapsed}}s </p>  </div>
+    <br>
+    <div class="text-center">
+      <p>Want to style again with set styles? <a href="/image_input">Stylise</a></p>
+      <p>Want to style with custom style? <a href="/image_input_arbitrary">Arbitrary Stylise</a></p>
+    </div>
+    <div class="delete_buttons">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+     
+
+      <input type="submit" class="deleting" name="delete_image" value="Delete Generated and Uploaded Images">
+
+    </form>
+    </div>
+
+</body>
+
+{% endblock  %}
+
+
+{% block style %}
+<style>
+   
+    body {
+    font-family: 'Source Code Pro', sans-serif;
+    }
+    .wrap {
+    padding: 10% 20%;
+    }
+    h2 {
+    margin-top: 3em;
+    color: grey;
+    
+    
+    }
+
+    .image_container{
+      text-align: center;
+    
+    }
+
+    /* img{
+      border: 5px solid gold;
+    } */
+
+    .headline {
+  margin-bottom: 50px;
+  /* margin-top: 50px; */
+  font-family: 'Bebas Neue', cursive;
+  font-size: 20px;
+  background-color: gold;
+  box-shadow:0 0 15px lightgray;
+  text-align: center;
+}
+
+.time{
+  text-align: center;
+  font-size: 28px;
+}
+
+
+
+.deleting{
+  padding: 8px 12px 8px 12px;
+  font-size: 13px;
+  border-radius: 10px;
+  color: #ffffff;
+  background-color: #484848;
+  border-color: #484848;
+  cursor: pointer;
+  text-align: center;
+  width:260px;
+}
+
+.deleting:hover{
+  color:gold
+}
+
+.delete_buttons{
+  text-align: center;
+}
+    
+
+ 
+</style>
+{% endblock style %}
