@@ -19,12 +19,13 @@ git clone https://github.com/EarlTalavera404/DSP_Neural_Style_Transfer.git
 6. python manage.py runserver
 
 User logins
+<br>
 Base User
+<br>
 username = user@email.com
 password = Password123!
-
+<br>
 Manager 
 <br>
 username = Manager@email.com
-<br>
 password = RitzCracker321!
